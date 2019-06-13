@@ -21,7 +21,6 @@ object RDDBasic {
     val file = "C:\\Exchange_Summary by Frame._2019_06_13.csv"
     val filerdd1 = sc.textFile(file,5)
     println("first line",filerdd1.count())
-    filerdd1.take(5).foreach(println)
     filerdd1.take(10).foreach(println)
   }
 
