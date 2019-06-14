@@ -23,7 +23,7 @@ object RDDBasic {
     println("No of Rows",filerdd1.count())
     filerdd1.take(10).foreach(println)
     val filerdd2 = filerdd1.map(line => line.split(","))
-    val filerdd3 = filerdd2.map(line => line(1))
+    val filerdd3 = filerdd2.map(line => (line(0),line(1)))
     filerdd3.take(10).foreach(println)
   }
 
