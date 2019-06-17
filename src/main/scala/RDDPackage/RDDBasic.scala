@@ -18,7 +18,7 @@ object RDDBasic {
     rdd1.take(3).foreach(println)
     println("Total Count ",rdd1.count())
 
-    val file = "C:\\Exchange_Summary by Frame._2019_06_13.csv"
+    val file = "C:\\TEST.csv"
     val filerdd1 = sc.textFile(file,5)
     println("No of Rows",filerdd1.count())
     filerdd1.take(10).foreach(println)
