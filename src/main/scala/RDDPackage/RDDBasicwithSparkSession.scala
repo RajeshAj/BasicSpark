@@ -16,8 +16,8 @@ object RDDBasicwithSparkSession {
     rdd1.collect().foreach(println)
 
     // Load a CSV file
-    val filerdd1 = "C:\\Exchange_Summary by Frame._2019_06_13.csv"
-    val filerdd2 = sparksession.sparkContext.textFile(filerdd1,3)
+    val filerdd1 = "C:\\TEST.csv"
+    val filerdd2 = sparksession.sparkContext.textFile(filerdd1,1)
     filerdd2.take(2).foreach(println)
 
     // Seperater in our case its comma seperator
@@ -34,6 +34,11 @@ object RDDBasicwithSparkSession {
     val filehead = filerdd2.first()
     val filerdd6 = filerdd2.filter(_ != filehead )
     filerdd6.take(10).foreach(println)
+    // To Save a output file in the Destination
+
+    filerdd6.saveAsTextFile("C:\\outputs")
+    //filerdd6.saveAsTextFile("C:\\outputs")
+
   }
 
 }
