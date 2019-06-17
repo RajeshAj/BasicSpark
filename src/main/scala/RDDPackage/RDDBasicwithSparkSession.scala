@@ -16,13 +16,12 @@ object RDDBasicwithSparkSession {
     rdd1.collect().foreach(println)
 
     // Load a CSV file
-    val filerdd1 = "C:\\TEST.csv"
+    val filerdd1 = "C:\\Test.csv"
     val filerdd2 = sparksession.sparkContext.textFile(filerdd1,1)
     filerdd2.take(2).foreach(println)
 
     // Seperater in our case its comma seperator
     val filerdd3 = filerdd2.map(y => y.split(","))
-    filerdd3.take(5).foreach(println)
     // select the row that holds the substring "Nivia"
     val filerdd4 = filerdd3.filter(x => x(1).contains("Nivea" ))
     println("Count with Match Char",filerdd4.count())
@@ -35,10 +34,7 @@ object RDDBasicwithSparkSession {
     val filerdd6 = filerdd2.filter(_ != filehead )
     filerdd6.take(10).foreach(println)
     // To Save a output file in the Destination
-
     filerdd6.saveAsTextFile("C:\\outputs")
-    //filerdd6.saveAsTextFile("C:\\outputs")
 
   }
-
 }
