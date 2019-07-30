@@ -6,7 +6,7 @@ import org.apache.spark.sql.types.{ StringType, StructField, StructType}
 
 object DFBasicwithSparkSession {
   def main(args: Array[String]): Unit = {
-     val sparksess = new sql.SparkSession.Builder()
+     val sparksess = new SparkSession.Builder()
        .appName("DFSparkSession")
        .master("local")
        .getOrCreate()
