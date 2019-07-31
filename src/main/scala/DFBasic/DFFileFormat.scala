@@ -20,6 +20,11 @@ object DFFileFormat {
     println(dfparq.count())
     dfparq.show(10)
 
+    val dforc = spark.read.orc("c:\\Testorc.orc")
+    dforc.printSchema()
+    println(dforc.count())
+    dforc.show(10)
+
 
   }
 }
