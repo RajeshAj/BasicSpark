@@ -3,7 +3,7 @@ package FirstProject
 
 import javassist.runtime.Desc
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions.{avg, desc, from_unixtime, max, min, to_date, year}
+import org.apache.spark.sql.functions.{avg, desc, from_unixtime, max, min, to_date, year,explode,split}
 import org.apache.spark.sql.types.{IntegerType, LongType, StringType, StructField, StructType}
 
 
@@ -75,13 +75,19 @@ object DFDataAnalysis {
     println("users that have rated a movie and tagged a movie")
       mvt.select("userId").filter(mvt("rating").isNotNull && mvt("tag").isNotNull).distinct().show()
 
+    val mvty = mvt.select("*")
+        .withColumn("Tag_Year",year(to_date(mvt("Tag_Date"))))
 
     // Shows Year wise movie
     println("Year Wise Movie List",
-    mvt.select("movieId","title","Tag_Date")
-        .withColumn("Year",year(to_date(mvt("Tag_Date"))))
-        .filter(mvt("Tag_Date").isNotNull)
-        .orderBy(desc("Year")).show())
+      mvty.select("movieId","title","Tag_Year")
+              .orderBy(desc("Tag_Year")).show())
+
+    mvty.select("movieId","title","Tag_Year","genres")
+      .withColumn("genres", explode(split(mvt("genres"), "[|]")))
+      .orderBy(desc("movieId")).distinct()
+      .show(30)
+
 
 
   }
