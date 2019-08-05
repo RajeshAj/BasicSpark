@@ -1,7 +1,6 @@
 package FirstProject
 
 
-import javassist.runtime.Desc
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.{avg, desc, from_unixtime, max, min, to_date, year,explode,split}
 import org.apache.spark.sql.types.{IntegerType, LongType, StringType, StructField, StructType}
@@ -83,12 +82,11 @@ object DFDataAnalysis {
       mvty.select("movieId","title","Tag_Year")
               .orderBy(desc("Tag_Year")).show())
 
-    mvty.select("movieId","title","Tag_Year","genres")
+    mvty.select("movieId","Tag_Year","genres")
       .withColumn("genres", explode(split(mvt("genres"), "[|]")))
-      .orderBy(desc("movieId")).distinct()
+      .filter(mvty("Tag_Year").isNotNull)
+      .groupBy("genres","Tag_Year").count().distinct()
       .show(30)
-
-
 
   }
 }
